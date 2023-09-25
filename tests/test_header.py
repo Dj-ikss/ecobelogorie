@@ -116,29 +116,160 @@ def test_menu_contacts(driver):        # Контакты
 
 # BE - 1013 Кнопка-меню "Чем заняться"
 def test_menu_what_to_do(driver):    # Чем заняться
-    btn_what_to_do = driver.find_element(*btn_menu_what_to.BTN_WHAT_TO_DO)               # Находим кнопку-меню "Чем заняться"
+    btn_what_to_do = driver.find_elements(*btn_menu_what_to.BTN_WHAT_TO_DO)[0]          # Находим кнопку-меню "Чем заняться"
     assert btn_what_to_do.text == 'Чем заняться'                                       # Получаем название кнопки и проверяем его
     btn_what_to_do.click()                                                             # Нажимаем кнопку-меню "Чем заняться"
-    name_part_activity = driver.find_element(*name_part.NAME_PART).text       # Находим название открывшегося раздела
+    name_part_activity = driver.find_element(*name_part.NAME_PART).text                # Находим название открывшегося раздела
     assert name_part_activity == 'Активности'
 
 # BE - 1015 Раздел "Катание на беговых лыжах" в меню "Чем заняться"
 def test_menu_what_to_do_winter_cross_skiing(driver):
-    btn_what_to_do = driver.find_element(*btn_menu_what_to.BTN_WHAT_TO_DO)              # Кнопка "Чем заняться"
-    btn_winter = driver.find_elements(*btn_menu_what_to.BTN_WINTER)[0]                  # Кнопка "Зимний сезон"
+    btn_what_to_do = driver.find_elements(*btn_menu_what_to.BTN_WHAT_TO_DO)[0]               # Кнопка "Чем заняться"
+    btn_winter = driver.find_elements(*btn_menu_what_to.BTN_PART_MENU)[0]                  # Кнопка "Зимний сезон"
     btn_cross_skiing = driver.find_elements(*btn_menu_what_to.BTN_CROSS_SKIING)[0]      # Кнопка "Катание на беговых лыжах"
     ActionChains(driver).move_to_element(btn_what_to_do).move_to_element(btn_winter).click(btn_cross_skiing).perform()
-    name_part_cross_skiing = driver.find_element(*name_part.NAME_PART_CROSS_SKIING).text
+    name_part_cross_skiing = driver.find_element(*name_part.NAME_PART_SLIDER).text
     assert name_part_cross_skiing == 'Катание на беговых лыжах'
 
 # BE - 1016 Раздел "Катание на горных лыжах" в меню "Чем заняться"
 def test_menu_what_to_do_winter_mount_skiing(driver):
-    btn_what_to_do = driver.find_element(*btn_menu_what_to.BTN_WHAT_TO_DO)          # Кнопка "Чем заняться"
-    btn_winter = driver.find_elements(*btn_menu_what_to.BTN_WINTER)[0]              # Кнопка "Зимний сезон"
+    btn_what_to_do = driver.find_elements(*btn_menu_what_to.BTN_WHAT_TO_DO)[0]           # Кнопка "Чем заняться"
+    btn_winter = driver.find_elements(*btn_menu_what_to.BTN_PART_MENU)[0]              # Кнопка "Зимний сезон"
     btn_mount_skiing = driver.find_elements(*btn_menu_what_to.BTN_MOUNT_SKIING)[0]  # Кнопка "Катание на горных лыжах"
     ActionChains(driver).move_to_element(btn_what_to_do).move_to_element(btn_winter).click(btn_mount_skiing).perform()
-    name_part_mount_skiing = driver.find_element(*name_part.NAME_PART_CROSS_SKIING).text
+    name_part_mount_skiing = driver.find_element(*name_part.NAME_PART_SLIDER).text
     assert name_part_mount_skiing == 'Катание на горных лыжах'
+
+# BE - 1017 Раздел "Катание на сноуборде" в меню "Чем заняться"
+def test_menu_what_to_do_winter_snowboard(driver):
+    btn_what_to_do = driver.find_elements(*btn_menu_what_to.BTN_WHAT_TO_DO)[0]           # Кнопка "Чем заняться"
+    btn_winter = driver.find_elements(*btn_menu_what_to.BTN_PART_MENU)[0]              # Кнопка "Зимний сезон"
+    btn_snowboard = driver.find_elements(*btn_menu_what_to.BTN_SNOWBOARD)[0]        # Кнопка "Катание на сноуборде"
+    ActionChains(driver).move_to_element(btn_what_to_do).move_to_element(btn_winter).click(btn_snowboard).perform()
+    name_part_snowboard = driver.find_element(*name_part.NAME_PART_SLIDER).text
+    assert name_part_snowboard == 'Катание на сноуборде'
+
+# BE - 1018 Раздел "Катание на сноутюбинге" в меню "Чем заняться"
+def test_menu_what_to_do_winter_tubing(driver):
+    btn_what_to_do = driver.find_elements(*btn_menu_what_to.BTN_WHAT_TO_DO)[0]         # Кнопка "Чем заняться"
+    btn_winter = driver.find_elements(*btn_menu_what_to.BTN_PART_MENU)[0]              # Кнопка "Зимний сезон"
+    btn_tubing = driver.find_elements(*btn_menu_what_to.BTN_TUBING)[0]        # Кнопка "Катание на сноутюбинге"
+    ActionChains(driver).move_to_element(btn_what_to_do).move_to_element(btn_winter).click(btn_tubing).perform()
+    name_part_tubing = driver.find_element(*name_part.NAME_PART_SLIDER).text
+    assert name_part_tubing == 'Катание на сноутюбинге'
+
+# BE - 1019 Раздел "Катание на надувном драконе" в меню "Чем заняться"
+def test_menu_what_to_do_winter_dragon(driver):
+    btn_what_to_do = driver.find_elements(*btn_menu_what_to.BTN_WHAT_TO_DO)[0]        # Кнопка "Чем заняться"
+    btn_winter = driver.find_elements(*btn_menu_what_to.BTN_PART_MENU)[0]              # Кнопка "Зимний сезон"
+    btn_dragon = driver.find_elements(*btn_menu_what_to.BTN_DRAGON)[0]              # Кнопка "Катание на надувном драконе"
+    ActionChains(driver).move_to_element(btn_what_to_do).move_to_element(btn_winter).click(btn_dragon).perform()
+    name_part_dragon = driver.find_element(*name_part.NAME_PART_SLIDER).text
+    assert name_part_dragon == 'Катание на надувном драконе'
+
+# BE - 1020 Раздел "Катание на снегоходах" в меню "Чем заняться"
+def test_menu_what_to_do_winter_snowbike(driver):
+    btn_what_to_do = driver.find_elements(*btn_menu_what_to.BTN_WHAT_TO_DO)[0]        # Кнопка "Чем заняться"
+    btn_winter = driver.find_elements(*btn_menu_what_to.BTN_PART_MENU)[0]                # Кнопка "Зимний сезон"
+    btn_snowbike = driver.find_elements(*btn_menu_what_to.BTN_SNOWBIKE)[0]            # Кнопка "Катание на снегоходах"
+    ActionChains(driver).move_to_element(btn_what_to_do).move_to_element(btn_winter).click(btn_snowbike).perform()
+    name_part_snowbike = driver.find_element(*name_part.NAME_PART_SLIDER).text
+    assert name_part_snowbike == 'Катание на снегоходах'
+
+# BE - 1021 Раздел "Катание на квадроцикле" в меню "Чем заняться"
+def test_menu_what_to_do_summer_atv(driver):
+    btn_what_to_do = driver.find_elements(*btn_menu_what_to.BTN_WHAT_TO_DO)[0]           # Кнопка "Чем заняться"
+    btn_summer = driver.find_elements(*btn_menu_what_to.BTN_PART_MENU)[1]                # Кнопка "Летнй сезон"
+    btn_atv = driver.find_elements(*btn_menu_what_to.BTN_ATV)[0]                         # Кнопка "Катание на квадроцикле"
+    ActionChains(driver).move_to_element(btn_what_to_do).move_to_element(btn_summer).click(btn_atv).perform()
+    name_part_atv = driver.find_element(*name_part.NAME_PART_SLIDER).text                # Находим название раздела и сверяем его
+    assert name_part_atv == 'Катание на квадроцикле'
+
+# BE - 1022 Раздел "Бадминтон" в меню "Чем заняться"
+def test_menu_what_to_do_summer_badminton(driver):
+    btn_what_to_do = driver.find_elements(*btn_menu_what_to.BTN_WHAT_TO_DO)[0]           # Кнопка "Чем заняться"
+    btn_summer = driver.find_elements(*btn_menu_what_to.BTN_PART_MENU)[1]                # Кнопка "Летнй сезон"
+    btn_badminton = driver.find_elements(*btn_menu_what_to.BTN_BADMINTON)[0]             # Кнопка "Бадминтон"
+    ActionChains(driver).move_to_element(btn_what_to_do).move_to_element(btn_summer).click(btn_badminton).perform()
+    name_part_badminton = driver.find_element(*name_part.NAME_PART_SLIDER).text          # Находим название раздела и сверяем его
+    assert name_part_badminton == 'Бадминтон'
+
+# BE - 1023 Раздел "Катание на катамаране" в меню "Чем заняться"
+def test_menu_what_to_do_summer_catamaran(driver):
+    btn_what_to_do = driver.find_elements(*btn_menu_what_to.BTN_WHAT_TO_DO)[0]           # Кнопка "Чем заняться"
+    btn_summer = driver.find_elements(*btn_menu_what_to.BTN_PART_MENU)[1]                # Кнопка "Летнй сезон"
+    btn_catamaran = driver.find_elements(*btn_menu_what_to.BTN_CATAMARAN)[0]             # Кнопка "Катание на катамаране"
+    ActionChains(driver).move_to_element(btn_what_to_do).move_to_element(btn_summer).click(btn_catamaran).perform()
+    name_part_catamaran = driver.find_element(*name_part.NAME_PART_SLIDER).text          # Находим название раздела и сверяем его
+    assert name_part_catamaran == 'Катание на катамаране'
+
+# BE - 1024 Раздел "Катание на SUP-Доске" в меню "Чем заняться"
+def test_menu_what_to_do_summer_supboard(driver):
+    btn_what_to_do = driver.find_elements(*btn_menu_what_to.BTN_WHAT_TO_DO)[0]           # Кнопка "Чем заняться"
+    btn_summer = driver.find_elements(*btn_menu_what_to.BTN_PART_MENU)[1]                # Кнопка "Летнй сезон"
+    btn_supboard = driver.find_elements(*btn_menu_what_to.BTN_SUPBOARD)[0]               # Кнопка "Катание на SUP-Доске"
+    ActionChains(driver).move_to_element(btn_what_to_do).move_to_element(btn_summer).click(btn_supboard).perform()
+    name_part_supboard = driver.find_element(*name_part.NAME_PART_SLIDER).text           # Находим название раздела и сверяем его
+    assert name_part_supboard == 'Катание на SUP-Доске'
+
+# BE - 1025 Раздел "Стрельба из лука" в меню "Чем заняться"
+def test_menu_what_to_do_summer_archery(driver):
+    btn_what_to_do = driver.find_elements(*btn_menu_what_to.BTN_WHAT_TO_DO)[0]           # Кнопка "Чем заняться"
+    btn_summer = driver.find_elements(*btn_menu_what_to.BTN_PART_MENU)[1]                # Кнопка "Летнй сезон"
+    btn_archery = driver.find_elements(*btn_menu_what_to.BTN_ARCHERY)[0]                 # Кнопка "Стрельба из лука"
+    ActionChains(driver).move_to_element(btn_what_to_do).move_to_element(btn_summer).click(btn_archery).perform()
+    name_part_archery = driver.find_element(*name_part.NAME_PART_SLIDER).text            # Находим название раздела и сверяем его
+    assert name_part_archery == 'Стрельба из лука'
+
+# BE - 1026 Раздел "Баня" в меню "Чем заняться"
+def test_menu_what_to_do_bath(driver):
+    btn_what_to_do = driver.find_elements(*btn_menu_what_to.BTN_WHAT_TO_DO)[0]           # Кнопка "Чем заняться"
+    btn_bath = driver.find_elements(*btn_menu_what_to.BTN_BATH)[0]                       # Кнопка "Баня"
+    ActionChains(driver).move_to_element(btn_what_to_do).click(btn_bath).perform()
+    name_part_bath = driver.find_element(*name_part.NAME_PART_SLIDER).text               # Находим название раздела и сверяем его
+    assert name_part_bath == 'Посещение бани'
+
+# BE - 1027 Раздел "Сауна" в меню "Чем заняться"
+def test_menu_what_to_do_sauna(driver):
+    btn_what_to_do = driver.find_elements(*btn_menu_what_to.BTN_WHAT_TO_DO)[0]             # Кнопка "Чем заняться"
+    btn_sauna = driver.find_elements(*btn_menu_what_to.BTN_SAUNA)[0]                       # Кнопка "Сауна"
+    ActionChains(driver).move_to_element(btn_what_to_do).click(btn_sauna).perform()        # Заходим в меню и выбираем раздел "Сауна"
+    name_part_sauna = driver.find_element(*name_part.NAME_PART_SLIDER).text                # Находим название раздела и сверяем его
+    assert name_part_sauna == 'Посещение сауны'
+
+# BE - 1028 Раздел "Белогорский монастырь" в меню "Чем заняться"
+def test_menu_what_to_do_monastyr(driver):
+    btn_what_to_do = driver.find_elements(*btn_menu_what_to.BTN_WHAT_TO_DO)[0]                # Кнопка "Чем заняться"
+    btn_monastyr = driver.find_elements(*btn_menu_what_to.BTN_MONASTYR)[0]                    # Кнопка "Белогорский монастырь"
+    ActionChains(driver).move_to_element(btn_what_to_do).click(btn_monastyr).perform()        # Заходим в меню и выбираем раздел "Белогорский монастырь"
+    name_part_monastyr = driver.find_element(*name_part.NAME_PART_SLIDER).text                # Находим название раздела и сверяем его
+    assert name_part_monastyr == 'Посещение белогорского монастыря'
+
+# BE - 1029 Раздел "Проведение банкетов" в меню "Чем заняться"
+def test_menu_what_to_do_party(driver):
+    btn_what_to_do = driver.find_elements(*btn_menu_what_to.BTN_WHAT_TO_DO)[0]             # Кнопка "Чем заняться"
+    btn_party = driver.find_elements(*btn_menu_what_to.BTN_PARTY)[0]                       # Кнопка "Проведение банкетов"
+    ActionChains(driver).move_to_element(btn_what_to_do).click(btn_party).perform()        # Заходим в меню и выбираем раздел "Проведение банкетов"
+    name_part_party = driver.find_element(*name_part.NAME_PART_SLIDER).text                # Находим название раздела и сверяем его
+    assert name_part_party == 'Проведение банкетов, выпускных, корпоративов'
+
+# BE - 1030 Раздел "Проведение конференций" в меню "Чем заняться"
+def test_menu_what_to_do_conferency(driver):
+    btn_what_to_do = driver.find_elements(*btn_menu_what_to.BTN_WHAT_TO_DO)[0]                  # Кнопка "Чем заняться"
+    btn_conferency = driver.find_elements(*btn_menu_what_to.BTN_CONFERENCE)[0]                  # Кнопка "Проведение конференций"
+    ActionChains(driver).move_to_element(btn_what_to_do).click(btn_conferency).perform()        # Заходим в меню и выбираем раздел "Проведение конференций"
+    name_part_conferency = driver.find_element(*name_part.NAME_PART_SLIDER).text                # Находим название раздела и сверяем его
+    assert name_part_conferency == 'Проведение презентаций и пресс-конференций'
+
+# BE - 1031 Раздел "Мероприятия в беседках" в меню "Чем заняться"
+def test_menu_what_to_do_pavilion(driver):
+    btn_what_to_do = driver.find_elements(*btn_menu_what_to.BTN_WHAT_TO_DO)[0]                # Кнопка "Чем заняться"
+    btn_pavilion = driver.find_elements(*btn_menu_what_to.BTN_PAVILION)[0]                    # Кнопка "Мероприятия в беседках"
+    ActionChains(driver).move_to_element(btn_what_to_do).click(btn_pavilion).perform()        # Заходим в меню и выбираем раздел "Мероприятия в беседках"
+    name_part_pavilion = driver.find_element(*name_part.NAME_PART_SLIDER).text                # Находим название раздела и сверяем его
+    assert name_part_pavilion == 'Проведение мероприятий в закрытой беседке'
+
+
 
 
 
