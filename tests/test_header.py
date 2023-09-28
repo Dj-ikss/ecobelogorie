@@ -4,7 +4,8 @@ from itertools import count
 from selenium import webdriver
 import pytest
 from selenium.webdriver.common.by import By
-from pages.locators import btn_menu_about, click_btn_menu_about, name_part, btn_menu_what_to_do, btn_menu_rent, btn_rent_equipment
+from pages.locators import btn_menu_about, click_btn_menu_about, name_part, btn_menu_what_to_do, btn_menu_rent, \
+    btn_rent_equipment, btn_right_side, callback
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -407,5 +408,74 @@ def test_price(driver):
     btn_price = driver.find_elements(*btn_menu_what_to_do.BTN_PRICE)[0]
     assert btn_price.text == 'Цены'
     btn_price.click()
-    name_part_price = driver.find_element(*name_part.NAME_PART_PRICE).text  # Находим название открывшегося раздела
+    name_part_price = driver.find_element(*name_part.NAME_PART_PRICE).text    # Находим название открывшегося раздела
     assert name_part_price == 'Цены'
+
+# BE - 1050 Электронная почта
+def test_contact_email(driver):        # электронная почта
+    btn_email = driver.find_elements(*btn_right_side.BTN_EMAIL)[0]            # Находим название кнопки email (ecobelogorieperm@gmail.com)
+    assert btn_email.text == 'ecobelogorieperm@gmail.com'
+
+# BE - 1051 Контактный номер телефона  +7 950 476-00-06
+def test_contact_phone(driver):        # Номер телефона
+    btn_phone = driver.find_elements(*btn_right_side.BTN_PHONE)[0]            # Находим название кнопки телефона  +7 950 476-00-06
+    assert btn_phone.text == '+7 950 476-00-06'
+
+# BE - 1052 Соц.сеть Вконтакте
+def test_contact_vk(driver):          # переход на страницу ВК
+    driver.find_elements(*btn_right_side.BTN_VK)[0].click()                   # Нажимаем кнопку ВК и переходим на сайт ВК
+    driver.switch_to.window(driver.window_handles[1])                         # переключаемся на вкладку ВК (сайт ВК)
+    name_group_vk = driver.find_element(*name_part.NAME_GROUP_VK).text        # получаем название группы в ВК
+    assert name_group_vk == 'Всесезонный экокурорт «Белогорье»'
+    driver.close()
+    driver.switch_to.window(driver.window_handles[0])
+
+# BE - 1053 Кнопка "Обратный звонок"   ,     BE - 1054 Форма "Оставьте заявку" для обратного звонка
+def test_callback(driver):
+    btn_callback = driver.find_elements(*btn_right_side.BTN_CALLBACK)[0]          # Находим кнопку "Обратный звонок"
+    assert btn_callback.text == 'Обратный звонок'                                 # сверяем название кнопки
+    btn_callback.click()                                                          # Нажимаем кнопку "Обратный звонок"
+    name_part_callback = driver.find_elements(*name_part.NAME_CALLBACK)[6].text   # Находим назване формы "Оставить заявку"
+    input_name = driver.find_element(By.ID, 'name')
+    input_mobile = driver.find_element(By.ID, 'phone')
+    btn_submit = driver.find_element(By.CSS_SELECTOR, '*[onclick="BackCall()"]').text
+    assert name_part_callback == 'Оставьте заявку'
+    assert input_name.get_attribute('placeholder') == 'Ваше имя'
+    assert input_mobile.get_attribute('placeholder') == 'Ваш телефон'
+    assert btn_submit == 'Отправить'
+    driver.find_element(By.CLASS_NAME, 'carousel__button.is-close').click()       # Находим кнопку и закрываем форму "Оставить заявку"
+
+# BE - 1056 Поля ввода в форме "Оставьте заявку" , сообщения о пустом поле ввода
+def test_callback_error(driver):
+    driver.find_elements(*btn_right_side.BTN_CALLBACK)[0].click()             # Находим кнопку "Обратный звонок", нажимаем
+    driver.find_element(*callback.BTN_SEND).click()   # Находим кнопку "Отправить" и нажимаем
+    WebDriverWait(driver, 3).until(EC.visibility_of_element_located((By.CLASS_NAME, 'text-danger')))     # Явное ожидание
+    error_name = driver.find_element(*callback.NAME_ERROR).text           # Находим сообщение об ошибке поля ввода Имя
+    phone_error = driver.find_element(By.ID, 'phoneError').text         # Находим сообщение об ошибке поля ввода номер телефона
+    assert error_name == 'Укажите имя'
+    assert phone_error == 'Укажите номер телефона'
+    driver.find_element(By.CLASS_NAME, 'carousel__button.is-close').click()  # Находим кнопку и закрываем форму "Оставить заявку"
+
+# BE - 1057 Поле ввода "Ваше имя" в форме "Оставьте заявку", невалидные значения
+@pytest.fixture(scope= 'session')
+def open_callback(driver):
+    driver.find_elements(*btn_right_side.BTN_CALLBACK)[0].click()  # Находим кнопку "Обратный звонок", нажимаем
+    yield
+    driver.find_element(By.CLASS_NAME, 'carousel__button.is-close').click()  # Находим кнопку и закрываем форму "Оставить заявку"
+
+@pytest.mark.parametrize("name", ['n', 'н', '12345', '!@#$&*', '个人', ' '])
+def test_callback_notvalid_name(driver, open_callback, name):
+    driver.find_element(*callback.INPUT_NAME).send_keys(name)            # Находим поле ввода Имя и вводим данные
+    driver.find_element(*callback.BTN_SEND).click()                        # Находим кнопку "Отправить" и нажимаем
+    time.sleep(1)
+    error_name = driver.find_element(By.ID, 'nameError').text
+    driver.find_element(*callback.INPUT_NAME).clear()
+    assert error_name == 'Укажите имя'
+    if error_name == 'Укажите имя':
+        pass
+    else:
+        print('Валидация не пройдена')
+    # time.sleep(2)
+
+
+
