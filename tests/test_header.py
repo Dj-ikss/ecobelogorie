@@ -446,36 +446,77 @@ def test_callback(driver):
     driver.find_element(By.CLASS_NAME, 'carousel__button.is-close').click()       # Находим кнопку и закрываем форму "Оставить заявку"
 
 # BE - 1056 Поля ввода в форме "Оставьте заявку" , сообщения о пустом поле ввода
-def test_callback_error(driver):
-    driver.find_elements(*btn_right_side.BTN_CALLBACK)[0].click()             # Находим кнопку "Обратный звонок", нажимаем
+def test_callback_error(driver, open_callback):
     driver.find_element(*callback.BTN_SEND).click()   # Находим кнопку "Отправить" и нажимаем
-    WebDriverWait(driver, 3).until(EC.visibility_of_element_located((By.CLASS_NAME, 'text-danger')))     # Явное ожидание
+    WebDriverWait(driver, 1).until(EC.visibility_of_element_located((By.CLASS_NAME, 'text-danger')))     # Явное ожидание
     error_name = driver.find_element(*callback.NAME_ERROR).text           # Находим сообщение об ошибке поля ввода Имя
     phone_error = driver.find_element(By.ID, 'phoneError').text         # Находим сообщение об ошибке поля ввода номер телефона
     assert error_name == 'Укажите имя'
     assert phone_error == 'Укажите номер телефона'
-    driver.find_element(By.CLASS_NAME, 'carousel__button.is-close').click()  # Находим кнопку и закрываем форму "Оставить заявку"
 
 # BE - 1057 Поле ввода "Ваше имя" в форме "Оставьте заявку", невалидные значения
-@pytest.fixture(scope= 'session')
-def open_callback(driver):
-    driver.find_elements(*btn_right_side.BTN_CALLBACK)[0].click()  # Находим кнопку "Обратный звонок", нажимаем
-    yield
-    driver.find_element(By.CLASS_NAME, 'carousel__button.is-close').click()  # Находим кнопку и закрываем форму "Оставить заявку"
-
-@pytest.mark.parametrize("name", ['n', 'н', '12345', '!@#$&*', '个人', ' '])
+@pytest.mark.parametrize("name", ['n', 'н', '12345', '!@#$&*', '个人', '  '])
 def test_callback_notvalid_name(driver, open_callback, name):
-    driver.find_element(*callback.INPUT_NAME).send_keys(name)            # Находим поле ввода Имя и вводим данные
+    driver.find_element(*callback.INPUT_NAME).send_keys(name)              # Находим поле ввода Имя и вводим данные
     driver.find_element(*callback.BTN_SEND).click()                        # Находим кнопку "Отправить" и нажимаем
-    time.sleep(1)
-    error_name = driver.find_element(By.ID, 'nameError').text
+    WebDriverWait(driver, 1).until(EC.visibility_of_element_located((By.CLASS_NAME, 'text-danger')))     # Явное ожидание
+    error_name = driver.find_element(By.ID, 'nameError').text              # Ищем сообщение ооб ошибке ввода
     driver.find_element(*callback.INPUT_NAME).clear()
-    assert error_name == 'Укажите имя'
     if error_name == 'Укажите имя':
         pass
     else:
         print('Валидация не пройдена')
-    # time.sleep(2)
+    assert error_name == 'Укажите имя'
 
+# BE - 1058 Поле ввода "Ваш телефон" в форме "Оставьте заявку", валидация номера
+@pytest.mark.parametrize("phone", ['1', '123456789012', ' '])
+def test_callback_notvalid_number_phone(driver, open_callback, phone):
+    driver.find_element(*callback.INPUT_PHONE).send_keys(phone)    # Находим поле ввода Ваш телефон и вводим данные
+    driver.find_element(*callback.BTN_SEND).click()                # Находим кнопку "Отправить" и нажимаем
+    WebDriverWait(driver, 1).until(EC.visibility_of_element_located((By.CLASS_NAME, 'text-danger')))     # Явное ожидание
+    error_phone = driver.find_element(*callback.PHONE_ERROR).text  # Ищем сообщение ооб ошибке ввода "Укажите номер телефона"
+    driver.find_element(*callback.INPUT_PHONE).clear()              # Очищаем поле ввода
+    if error_phone == 'Укажите номер телефона':
+        print('Валидация пройдена')
+    else:
+        print('Валидация не пройдена')
+    assert error_phone == 'Укажите номер телефона'
 
+# BE - 1059 Поле ввода "Ваш телефон" в форме "Оставьте заявку", невалидные данные
+@pytest.mark.parametrize("phone1", ['R', 'ю', '个人', '!"№;%:?*'])
+def test_callback_notvalid_phone(driver, open_callback, phone1):
+    driver.find_element(*callback.INPUT_PHONE).send_keys(phone1)    # Находим поле ввода Ваш телефон и вводим данные
+    driver.find_element(*callback.BTN_SEND).click()                # Находим кнопку "Отправить" и нажимаем
+    WebDriverWait(driver, 1).until(EC.visibility_of_element_located((By.CLASS_NAME, 'text-danger')))  # Явное ожидание
+    error_phone1 = driver.find_element(*callback.PHONE_ERROR).text  # Ищем сообщение ооб ошибке ввода
+    driver.find_element(*callback.INPUT_PHONE).clear()              # Очищаем поле ввода
+    if error_phone1 == 'Разрешенно писать только цифры':
+        print('Валидация пройдена')
+    else:
+        print('Валидация не пройдена')
+    assert error_phone1 == 'Разрешенно писать только цифры'
+
+# BE - 1062 Текстовая ссылка "Обработка персональных данных" в форме "Оставить заявку"
+def test_callback_privacy_policy(driver):
+    driver.find_element(*btn_right_side.BTN_CALLBACK).click()                     # Находим кнопку "Обратный звонок", нажимаем
+    driver.find_element(By.LINK_TEXT, 'обработку персональных данных').click()    # Находим текстовую ссылку и нажимаем её
+    document_policy = driver.find_element(*name_part.NAME_PART).text              # сверяем открышийся раздел
+    parts_policy = driver.find_elements(By.XPATH, '//h2')                         # находим все пункты в Политика конфиденциальности
+    driver.back()
+    assert document_policy == 'Политика конфиденциальности'      # сверяем открывшийся документ
+    assert len(parts_policy) == 12                               # сверяем количество пунктов в политике конфиденциальности (12 пунктов)
+
+# BE - 1063 Кнопка "Забронировать номер"
+def test_btn_rent_room(driver):
+    btn_rent_room = driver.find_element(*btn_right_side.BTN_RENT_ROOM)      # Находим кнопку "Забронировать номер"
+    assert btn_rent_room.text == 'Забронировать номер'                      # Сверяем название кнопки
+    btn_rent_room.click()                                                   # Нажимаем кнопку "Забронировать номер"
+    name_part_rent_room = driver.find_element(*name_part.NAME_PART).text    # Находим название открывшегося раздела
+    assert name_part_rent_room == 'Онлайн бронирование'
+    iframe = driver.find_element(By.TAG_NAME, 'iframe')
+    driver.switch_to.frame(iframe)                                               # Переключаемся на всплывающее окно
+    btn_cookie = driver.find_element(By.CSS_SELECTOR, '*[href="/Пользовательское соглашение.pdf"]')  # Отобразилось всплывающее окно об использовании cookie
+    assert btn_cookie.text == 'с Пользовательским соглашением.'
+    driver.switch_to.default_content()                                           # Переключаемся на основную страницу сайта
+    driver.back()
 
