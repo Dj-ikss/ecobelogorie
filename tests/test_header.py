@@ -10,6 +10,8 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+"""Тесты для хэддера"""
+
 # BE - 1001 Лого "Белогорье экокурорт"
 def test_main_logo(driver):       # Лого
     main_logo = driver.find_element(By.CSS_SELECTOR, '*[alt="main logo"]').size                # Находим лого и размер картинки
@@ -29,7 +31,7 @@ def test_menu_about_us_about_hotel(driver):     # Кнопка "О базе от
     driver.find_element(*btn_menu_about.BTN_ABOUT).click()                        # Нажимаем кнопку меню "О нас"
     btn_about_hotel = driver.find_element(*btn_menu_about.BTN_HOTEL).text         # Находим кнопку "О базе отдыха", получаем название
     driver.find_element(*btn_menu_about.BTN_HOTEL).click()                        # Нажимаем кнопку "О базе отдыха"
-    promo_slide = driver.find_element(*name_part.NAME_PART_RESORT).text          # Находим название раздела
+    promo_slide = driver.find_element(*name_part.NAME_PART_SLIDER).text          # Находим название раздела
     assert btn_about_hotel == 'О базе отдыха'
     assert promo_slide == 'Всесезонный курорт «Белогорье»'
 
@@ -38,7 +40,7 @@ def test_menu_about_us_about_ski(driver):       # Кнопка "Горнолыж
     driver.find_element(*btn_menu_about.BTN_ABOUT).click()                      # Нажимаем кнопку меню "О нас"
     btn_about_ski = driver.find_element(*btn_menu_about.BTN_SKI).text           # Находим кнопку "Горнолыжный комплекс", получаем название
     driver.find_element(*btn_menu_about.BTN_SKI).click()                        # Нажимаем кнопку "Горнолыжный комплекс"
-    name_part_ski = driver.find_element(*name_part.NAME_PART_SKI).text         # Находим название раздела
+    name_part_ski = driver.find_element(*name_part.NAME_PART_SLIDER).text         # Находим название раздела
     assert btn_about_ski == 'Горнолыжный комплекс'
     assert name_part_ski == 'Горнолыжный комплекс Белогорье'
 
@@ -270,7 +272,7 @@ def test_menu_what_to_do_pavilion(driver):
     name_part_pavilion = driver.find_element(*name_part.NAME_PART_SLIDER).text                # Находим название раздела и сверяем его
     assert name_part_pavilion == 'Проведение мероприятий в закрытой беседке'
 
-# XXXXXXXXXXX  Кнопка "Проживание"
+# BE - 1032  Кнопка "Проживание"
 def test_menu_rent(driver):
     btn_menu = driver.find_elements(*btn_menu_rent.BTN_MENU_RENT)[0]        # Кнопка-меню "проживание"
     assert btn_menu.text == 'Проживание'                                    # Кнопка-меню "проживание" - проверяем название
@@ -279,7 +281,7 @@ def test_menu_rent(driver):
     assert name_part_rent == 'Проживание на курорте Белогорье'
     driver.find_element(By.CSS_SELECTOR, '*[href="https://ecobelogorie.ru"]').click()  # Переходим на главную страницу
 
-# XXXXXXXXXXX  Раздел "Дома" в меню "Проживание"
+# BE - 1034  Раздел "Дома" в меню "Проживание"
 def test_menu_rent_house(driver):
     btn_menu = driver.find_elements(*btn_menu_rent.BTN_MENU_RENT)[0]           # Кнопка-меню "проживание"
     btn_menu_house = driver.find_elements(*btn_menu_rent.BTN_SUBMENU)[2]      # Кнопка  Дома в меню "проживание"
@@ -287,7 +289,7 @@ def test_menu_rent_house(driver):
     name_part_rent_house = driver.find_element(*name_part.NAME_PART).text     # Находим название открывшегося раздела
     assert name_part_rent_house == 'Дома для проживания'
 
-# XXXXXXXXXXX  Раздел "Гостиница" в меню "Проживание"
+# BE - 1035  Раздел "Гостиница" в меню "Проживание"
 def test_menu_rent_room(driver):
     btn_menu = driver.find_elements(*btn_menu_rent.BTN_MENU_RENT)[0]      # Кнопка-меню "проживание"
     btn_menu_room = driver.find_elements(*btn_menu_rent.BTN_SUBMENU)[3]   # Кнопка  Гостиница в меню "проживание"
@@ -295,7 +297,7 @@ def test_menu_rent_room(driver):
     name_part_rent_room = driver.find_element(*name_part.NAME_PART).text  # Находим название открывшегося раздела
     assert name_part_rent_room == 'Проживание в гостинице'
 
-#  XXXXX   Кнопка "Прокат снаряжения"
+#  BE - 1036   Кнопка "Прокат снаряжения"
 def test_menu_rent_equipment(driver):
     btn_menu_rent_equipment = driver.find_elements(*btn_rent_equipment.BTN_MENU_EQUIPMENT)[0]  # Кнопка-меню "Прокат снаряжения"
     assert btn_menu_rent_equipment.text == 'Прокат снаряжения'
@@ -304,7 +306,7 @@ def test_menu_rent_equipment(driver):
     assert name_part_rent_equipment == 'Аренда инвентаря'
     driver.find_element(By.CSS_SELECTOR, '*[href="https://ecobelogorie.ru"]').click()           # Переходим на главную страницу
 
-# XXXX    Раздел "Прокат горных лыж" в меню "Прокат снаряжения"
+# BE - 1038    Раздел "Прокат горных лыж" в меню "Прокат снаряжения"
 def test_menu_rent_mount_ski(driver):
     btn_menu = driver.find_elements(*btn_rent_equipment.BTN_MENU_EQUIPMENT)[0]             # Кнопка-меню "Прокат снаряжения"
     btn_winter = driver.find_elements(*btn_rent_equipment.BTN_SUBMENU)[4]                  # Кнопка Зимний сезон в меню "Прокат снаряжения"
@@ -313,7 +315,7 @@ def test_menu_rent_mount_ski(driver):
     name_part_rent_mount_ski = driver.find_element(*name_part.NAME_PART_RENT).text        # Находим название открывшегося раздела
     assert name_part_rent_mount_ski == 'Прокат горных лыж'
 
-# XXXX    Раздел "Прокат беговых лыж" в меню "Прокат снаряжения"
+# BE - 1039    Раздел "Прокат беговых лыж" в меню "Прокат снаряжения"
 def test_menu_rent_cross_ski(driver):
     btn_menu = driver.find_elements(*btn_rent_equipment.BTN_MENU_EQUIPMENT)[0]  # Кнопка-меню "Прокат снаряжения"
     btn_winter = driver.find_elements(*btn_rent_equipment.BTN_SUBMENU)[4]       # Кнопка Зимний сезон в меню "Прокат снаряжения"
@@ -322,7 +324,7 @@ def test_menu_rent_cross_ski(driver):
     name_part_rent_cross_ski = driver.find_element(*name_part.NAME_PART_RENT).text    # Находим название открывшегося раздела
     assert name_part_rent_cross_ski == 'Прокат беговых лыж'
 
-# XXXX    Раздел "Прокат сноуборда" в меню "Прокат снаряжения"
+# BE - 1040    Раздел "Прокат сноуборда" в меню "Прокат снаряжения"
 def test_menu_rent_snowbord(driver):
     btn_menu = driver.find_elements(*btn_rent_equipment.BTN_MENU_EQUIPMENT)[0]  # Кнопка-меню "Прокат снаряжения"
     btn_winter = driver.find_elements(*btn_rent_equipment.BTN_SUBMENU)[4]       # Кнопка Зимний сезон в меню "Прокат снаряжения"
@@ -331,7 +333,7 @@ def test_menu_rent_snowbord(driver):
     name_part_rent_snowbord = driver.find_element(*name_part.NAME_PART_RENT).text    # Находим название открывшегося раздела
     assert name_part_rent_snowbord == 'Прокат сноуборда'
 
-# XXXX    Раздел "Прокат надувного дракона" в меню "Прокат снаряжения"
+# BE - 1041    Раздел "Прокат надувного дракона" в меню "Прокат снаряжения"
 def test_menu_rent_dragon(driver):
     btn_menu = driver.find_elements(*btn_rent_equipment.BTN_MENU_EQUIPMENT)[0]  # Кнопка-меню "Прокат снаряжения"
     btn_winter = driver.find_elements(*btn_rent_equipment.BTN_SUBMENU)[4]       # Кнопка Зимний сезон в меню "Прокат снаряжения"
@@ -340,7 +342,7 @@ def test_menu_rent_dragon(driver):
     name_part_rent_dragon = driver.find_element(*name_part.NAME_PART_RENT).text    # Находим название открывшегося раздела
     assert name_part_rent_dragon == 'Прокат надувного дракона'
 
-# XXXX    Раздел "прокат сноутюбинга" в меню "Прокат снаряжения"
+# BE - 1042    Раздел "прокат сноутюбинга" в меню "Прокат снаряжения"
 def test_menu_rent_tubing(driver):
     btn_menu = driver.find_elements(*btn_rent_equipment.BTN_MENU_EQUIPMENT)[0]  # Кнопка-меню "Прокат снаряжения"
     btn_winter = driver.find_elements(*btn_rent_equipment.BTN_SUBMENU)[4]       # Кнопка Зимний сезон в меню "Прокат снаряжения"
@@ -349,7 +351,7 @@ def test_menu_rent_tubing(driver):
     name_part_rent_tubing = driver.find_element(*name_part.NAME_PART_RENT).text    # Находим название открывшегося раздела
     assert name_part_rent_tubing == 'Прокат сноутюбинга'
 
-# XXXX    Раздел "Прокат снегохода" в меню "Прокат снаряжения"
+# BE - 1043    Раздел "Прокат снегохода" в меню "Прокат снаряжения"
 def test_menu_rent_snowbike(driver):
     btn_menu = driver.find_elements(*btn_rent_equipment.BTN_MENU_EQUIPMENT)[0]      # Кнопка-меню "Прокат снаряжения"
     btn_winter = driver.find_elements(*btn_rent_equipment.BTN_SUBMENU)[4]           # Кнопка Зимний сезон в меню "Прокат снаряжения"
@@ -358,7 +360,7 @@ def test_menu_rent_snowbike(driver):
     name_part_rent_snowbike = driver.find_element(*name_part.NAME_PART_RENT).text    # Находим название открывшегося раздела
     assert name_part_rent_snowbike == 'Прокат снегохода'
 
-# XXXX    Раздел "Прокат квадроцикла" в меню "Прокат снаряжения"
+# BE - 1044    Раздел "Прокат квадроцикла" в меню "Прокат снаряжения"
 def test_menu_rent_atv(driver):
     btn_menu = driver.find_elements(*btn_rent_equipment.BTN_MENU_EQUIPMENT)[0]      # Кнопка-меню "Прокат снаряжения"
     btn_summer = driver.find_elements(*btn_rent_equipment.BTN_SUBMENU)[5]           # Кнопка Летний сезон в меню "Прокат снаряжения"
@@ -367,7 +369,7 @@ def test_menu_rent_atv(driver):
     name_part_rent_atv = driver.find_element(*name_part.NAME_PART_RENT).text        # Находим название открывшегося раздела
     assert name_part_rent_atv == 'Прокат квадроцикла'
 
-# XXXX    Раздел "Прокат катамарана" в меню "Прокат снаряжения"
+# BE - 1045    Раздел "Прокат катамарана" в меню "Прокат снаряжения"
 def test_menu_rent_catamaran(driver):
     btn_menu = driver.find_elements(*btn_rent_equipment.BTN_MENU_EQUIPMENT)[0]      # Кнопка-меню "Прокат снаряжения"
     btn_summer = driver.find_elements(*btn_rent_equipment.BTN_SUBMENU)[5]           # Кнопка Летний сезон в меню "Прокат снаряжения"
@@ -376,7 +378,7 @@ def test_menu_rent_catamaran(driver):
     name_part_rent_catamaran = driver.find_element(*name_part.NAME_PART_RENT).text  # Находим название открывшегося раздела
     assert name_part_rent_catamaran == 'Прокат катамарана'
 
-# XXXX    Раздел "Прокат SUP-Борда" в меню "Прокат снаряжения"
+# BE - 1046    Раздел "Прокат SUP-Борда" в меню "Прокат снаряжения"
 def test_menu_rent_supboard(driver):
     btn_menu = driver.find_elements(*btn_rent_equipment.BTN_MENU_EQUIPMENT)[0]      # Кнопка-меню "Прокат снаряжения"
     btn_summer = driver.find_elements(*btn_rent_equipment.BTN_SUBMENU)[5]           # Кнопка Летний сезон в меню "Прокат снаряжения"
@@ -385,7 +387,7 @@ def test_menu_rent_supboard(driver):
     name_part_rent_supboard = driver.find_element(*name_part.NAME_PART_RENT).text  # Находим название открывшегося раздела
     assert name_part_rent_supboard == 'Прокат SUP-Борда'
 
-# XXXX    Раздел "Прокат инвентаря для стрельбы из лука" в меню "Прокат снаряжения"
+# BE - 1047    Раздел "Прокат инвентаря для стрельбы из лука" в меню "Прокат снаряжения"
 def test_menu_rent_archery(driver):
     btn_menu = driver.find_elements(*btn_rent_equipment.BTN_MENU_EQUIPMENT)[0]      # Кнопка-меню "Прокат снаряжения"
     btn_summer = driver.find_elements(*btn_rent_equipment.BTN_SUBMENU)[5]           # Кнопка Летний сезон в меню "Прокат снаряжения"
@@ -394,7 +396,7 @@ def test_menu_rent_archery(driver):
     name_part_rent_archery = driver.find_element(*name_part.NAME_PART_RENT).text  # Находим название открывшегося раздела
     assert name_part_rent_archery == 'Прокат инвентаря для стрельбы из лука'
 
-# XXXX    Раздел "Прокат ракеток для бадминтона" в меню "Прокат снаряжения"
+# BE - 1048    Раздел "Прокат ракеток для бадминтона" в меню "Прокат снаряжения"
 def test_menu_rent_badminton(driver):
     btn_menu = driver.find_elements(*btn_rent_equipment.BTN_MENU_EQUIPMENT)[0]      # Кнопка-меню "Прокат снаряжения"
     btn_summer = driver.find_elements(*btn_rent_equipment.BTN_SUBMENU)[5]           # Кнопка Летний сезон в меню "Прокат снаряжения"

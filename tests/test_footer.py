@@ -13,7 +13,7 @@ def test_copyright(driver):     # все права защищены
 def test_privacy_policy(driver):     # Политика конфиденциальности
     btn_policy = driver.find_element(By.CSS_SELECTOR, '*[href="https://ecobelogorie.ru/privacy-policy"]').text   # находим кнопку по гиперссылке
     driver.get("https://ecobelogorie.ru/privacy-policy")                                                         # переходим по гиперссылке
-    document_policy = driver.find_element(By.CLASS_NAME, 'title_x').text                                         # сверяем открышийся раздел
+    document_policy = driver.find_element(*name_part.NAME_PART).text                                         # сверяем открышийся раздел
     parts_policy = driver.find_elements(By.XPATH, '//h2')                                                        # находим все пункты в Политика конфиденциальности
     driver.back()
     assert btn_policy == 'Политика конфиденциальности'           # сверяем текст на кнопке
@@ -30,7 +30,7 @@ def test_about_info_from_maintitle(driver):    # раздел О курорте
     btn_about_info = driver.find_element(By.LINK_TEXT, 'О курорте')             # Находим кнопку О курорте
     link_btn_about_info = btn_about_info.get_attribute('href')                  # Получаем ссылку из этой кнопки
     driver.get(link_btn_about_info)                                             # Переходим по ссылке
-    promo_slide = driver.find_element(*name_part.NAME_PART_RESORT).text                     # Находим название раздела
+    promo_slide = driver.find_element(*name_part.NAME_PART_SLIDER).text                     # Находим название раздела
     img_promo_slide = driver.find_element(By.CSS_SELECTOR, '*[src="/images/__content/pages/about/1.jpg"]').is_displayed()   # Находим картинку
     assert promo_slide == 'Всесезонный курорт «Белогорье»'
     assert img_promo_slide == True
@@ -39,7 +39,7 @@ def test_info_rent(driver):    # Проживание
     btn_rent = driver.find_element(By.LINK_TEXT, 'Проживание')        # Находим кнопку Проживание
     link_btn_rent = btn_rent.get_attribute('href')                    # Получаем ссылку из этой кнопки
     driver.get(link_btn_rent)                                         # Переходим по ссылке
-    info_rent_title = driver.find_elements(By.CLASS_NAME, 'home_promo__slide__title')            # Находим название раздела
+    info_rent_title = driver.find_elements(*name_part.NAME_PART_SLIDER)            # Находим название раздела
     part1_living = driver.find_element(By.CLASS_NAME, 'title_y--living_block__live').text        # Находим подраздел Проживание
     part2_eat = driver.find_element(By.CLASS_NAME, 'live_page__eat__title').text                 # Находим подраздел Питание
     part3_activity = driver.find_element(By.CLASS_NAME, 'title_y--activity_block__home').text    # Находим подраздел Активности на курорте
@@ -59,14 +59,14 @@ def test_info_rent_equipment(driver):   # Прокат снаряжения
     btn_rent_equipment = driver.find_element(By.LINK_TEXT, 'Прокат снаряжения')      # Находим кнопку Прокат снаряжения
     link_btn_rent_equipment = btn_rent_equipment.get_attribute('href')               # Получаем ссылку из этой кнопки
     driver.get(link_btn_rent_equipment)                                              # Переходим по ссылке
-    info_rent_equipment = driver.find_element(By.CLASS_NAME, 'title_x').text         # Находим название раздела
+    info_rent_equipment = driver.find_element(*name_part.NAME_PART).text         # Находим название раздела
     assert info_rent_equipment == 'Аренда инвентаря'
 
 def test_info_contacts(driver):        # Контакты
     btn_contacts = driver.find_element(By.LINK_TEXT, 'Контакты')          # Находим кнопку Контакты
     link_btn_contacts = btn_contacts.get_attribute('href')                # Получаем ссылку из этой кнопки
     driver.get(link_btn_contacts)                                         # Переходим по ссылке
-    info_contacts = driver.find_element(By.CLASS_NAME, 'title_x').text    # Находим название раздела
+    info_contacts = driver.find_element(*name_part.NAME_PART).text    # Находим название раздела
     assert info_contacts == 'Контакты'
 
 def test_additional_title(driver):    # блок Дополнительная информация
@@ -79,38 +79,38 @@ def test_info_mountain_ride(driver):        # Горнолыжка
     btn_mountain_ride = driver.find_element(By.LINK_TEXT, 'Горнолыжка')             # Находим кнопку Горнолыжка
     link_btn_mountain_ride = btn_mountain_ride.get_attribute('href')                # Получаем ссылку из этой кнопки
     driver.get(link_btn_mountain_ride)                                              # Переходим по ссылке
-    name_part_ski = driver.find_element(*name_part.NAME_PART_SKI).text             # Находим название раздела
+    name_part_ski = driver.find_element(*name_part.NAME_PART_SLIDER).text             # Находим название раздела
     assert name_part_ski == 'Горнолыжный комплекс Белогорье'
 
 def test_info_hour_work(driver):        # Часы работы
     btn_hour_work = driver.find_element(By.LINK_TEXT, 'Часы работы')          # Находим кнопку Часы работы
     link_btn_hour_work = btn_hour_work.get_attribute('href')                  # Получаем ссылку из этой кнопки
     driver.get(link_btn_hour_work)                                            # Переходим по ссылке
-    info_hour_work = driver.find_element(*name_part.NAME_PART_HOUR_WORK).text       # Находим название раздела
+    info_hour_work = driver.find_element(*name_part.NAME_PART).text       # Находим название раздела
     assert info_hour_work == 'Часы работы'
 
 def test_info_map(driver):        # Карта
     btn_map = driver.find_element(By.LINK_TEXT, 'Карта')                # Находим кнопку Карта
     link_btn_map = btn_map.get_attribute('href')                        # Получаем ссылку из этой кнопки
     driver.get(link_btn_map)                                            # Переходим по ссылке
-    info_map = driver.find_element(*name_part.NAME_PART_MAP).text       # Находим название раздела
+    info_map = driver.find_element(*name_part.NAME_PART).text       # Находим название раздела
     img_map = driver.find_element(By.XPATH, '//img[contains(@src, ".jpg")]').is_displayed()
     assert info_map == 'Карта курорта «Белогорье»'
     assert img_map == True
 
-@pytest.mark.skip('Раздел в разработке')
+# @pytest.mark.skip('Раздел в разработке')
 def test_info_price(driver):        # Цена
     btn_price = driver.find_element(By.LINK_TEXT, 'Цена')                 # Находим кнопку Цена
     link_btn_price = btn_price.get_attribute('href')                      # Получаем ссылку из этой кнопки
     driver.get(link_btn_price)                                            # Переходим по ссылке
-    info_price = driver.find_element(By.CLASS_NAME, 'title_x').text       # Находим название раздела
-    assert info_price == 'Цены на услуги курорта'
+    info_price = driver.find_element(*name_part.NAME_PART_PRICE).text       # Находим название раздела
+    assert info_price == 'Цены'
 
 def test_gallery(driver):        # Галерея
     btn_gallery = driver.find_element(By.LINK_TEXT, 'Галерея')                 # Находим кнопку Галерея
     link_btn_gallery = btn_gallery.get_attribute('href')                       # Получаем ссылку из этой кнопки
     driver.get(link_btn_gallery)                                               # Переходим по ссылке
-    info_gallery = driver.find_element(*name_part.NAME_PART_GALLERY).text          # Находим название раздела
+    info_gallery = driver.find_element(*name_part.NAME_PART).text          # Находим название раздела
     images_gallary = driver.find_elements(By.CLASS_NAME, 'gallery__page__item')   # Находим все изображения
     assert info_gallery == 'Галерея'
     assert len(images_gallary) != 0              # Проверяем, что изображения еть на сайте и кол-во не равно нулю
@@ -123,7 +123,7 @@ def test_contact_phone(driver):        # Номер телефона
 def test_contact_email(driver):        # электронная почта
     btn_contact_email = driver.find_element(By.LINK_TEXT, 'ecobelogorieperm@gmail.com')   # Находим кнопку эл.почты
     link_btn_contact_email = btn_contact_email.get_attribute('href')                      # Получаем ссылку из этой кнопки
-    assert link_btn_contact_email == 'mailto:ecobelogorieperm@gmail.com'                  # сравниваем ссылку на нэлектронку
+    assert link_btn_contact_email == 'mailto:ecobelogorieperm@gmail.com'                  # сравниваем ссылку на электронку
 
 def test_contact_vk(driver):          # переход на страницу ВК
     btn_vk = driver.find_element(By.CSS_SELECTOR, '*[target="_blank"]').click()       # Находим кнопку и переходим в ВК
