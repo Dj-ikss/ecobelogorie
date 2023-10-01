@@ -1,26 +1,16 @@
 import time
-
+from itertools import count
+import datetime
 from selenium import webdriver
 import pytest
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.select import Select
+from pages.locators import btn_menu_about, click_btn_menu_about, name_part, btn_menu_what_to_do, btn_menu_rent, \
+    btn_rent_equipment, btn_right_side, callback
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
-chrome_driver = webdriver.Chrome()
-link = 'https://vk.com/ecobelogorie'
-chrome_driver.get(link)
-chrome_driver.maximize_window()  # макс размер экрана
+"""Раздел Онлайн бронирование"""
 
-
-time.sleep(3)
-# chrome_driver.find_element(By.CLASS_NAME, 'header__top__menu--has_submenu').click()
-# time.sleep(3)
-# chrome_driver.find_element(By.XPATH, '(//*[text() = "Новости"])[1]').click()
-# chrome_driver.find_element(By.XPATH, '/html/body/div/footer/div/div[2]/div[2]').click()
-i = chrome_driver.current_url
-
-
-
-
-# chrome_driver.execute_script("window.scrollTo(0, document.body.scrollHeight)")
-time.sleep(3)
-chrome_driver.quit()
+today_date = datetime.date.month
+print(today_date)
