@@ -13,12 +13,14 @@ def driver():
     link = 'https://ecobelogorie.ru/'
     chrome_driver.get(link)
     chrome_driver.maximize_window()  # макс размер экрана
+    chrome_driver.find_element(By.CSS_SELECTOR, '*[title="Close"]').click()
+    time.sleep(1)
     return chrome_driver
 
 
 @pytest.fixture(scope="function")
 def open_callback(driver):
     driver.find_element(By.CSS_SELECTOR, '*[href="https://ecobelogorie.ru"]').click()   # Нажимаем по Лого, для перехода к главной странице
-    driver.find_element(*btn_right_side.BTN_CALLBACK).click()            # Находим кнопку "Обратный звонок", нажимаем
+    driver.find_element(*btn_right_side.BTN_CALLBACK).click()                           # Находим кнопку "Обратный звонок", нажимаем
     yield
     driver.find_element(By.CLASS_NAME, 'carousel__button.is-close').click()  # Находим кнопку и закрываем форму "Оставить заявку"
