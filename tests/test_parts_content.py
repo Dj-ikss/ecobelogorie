@@ -46,3 +46,18 @@ def test_live_rent(driver):
     driver.back()
     name_parts_on_img = driver.find_elements(By.CLASS_NAME, 'living_block__item__title')  # Находим названия разделов в изображениях блока ПРОЖИВАНИЕ
     assert (name_parts_on_img[0].text, name_parts_on_img[1].text) == ('Дом', 'Номер')
+
+# BE - 2240 Переключатель "Зима" , "Лето" в блоке  "Активности на курорте"
+def test_switch_summer_winter(driver):
+    name_modul = driver.find_element(*main_page.NAME_MODUL_ACTIVITY)             # Находим название блока "Активности на курорте"
+    driver.execute_script("arguments[0].scrollIntoView(true);", name_modul)      # Скролим страницу до блока "Активности на курорте"
+    assert name_modul.text == 'Активности на курорте'
+    time.sleep(1)
+    driver.find_elements(By.CSS_SELECTOR, '*[data-season="summer"]')[0].click()  # Нажимаем кнопку "Лето" в блоке "Активности на курорте"
+    driver.implicitly_wait(1)
+    summer_activity = driver.find_elements(By.CSS_SELECTOR, '*[class="card_activity"]')    # Находим карточку летнего вида спорта и сравниваем их кол-во на странице
+    assert len(summer_activity) == 5
+    driver.find_elements(By.CSS_SELECTOR, '*[data-season="winter"]')[0].click()  # Нажимаем кнопку "Зима" в блоке "Активности на курорте"
+    driver.implicitly_wait(1)
+    summer_activity = driver.find_elements(By.CSS_SELECTOR, '*[class="card_activity"]')    # Находим карточку зимнего вида спорта и сравниваем их кол-во на странице
+    assert len(summer_activity) == 6
