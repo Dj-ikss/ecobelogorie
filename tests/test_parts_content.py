@@ -24,10 +24,11 @@ def test_gallery(driver):
     foto = driver.find_element(By.CSS_SELECTOR, '*[src="/images/__content/gallery/1.jpg"]').is_displayed()
     driver.find_element(By.CSS_SELECTOR, '*[src="/images/__content/gallery/1.jpg"]').click()
     time.sleep(1)
-    play_foto = driver.find_element(By.XPATH, '//*[@id="fancybox-1"]/div[2]/div[2]/button[2]').is_displayed()
+    close_foto = driver.find_element(By.CSS_SELECTOR, '*[title="Close"]')
     assert name_part.text == 'Галерея'
     assert foto == True
-    assert play_foto == True
+    assert close_foto.is_displayed() == True
+    close_foto.click()
 
 # BE - 2220 Блок "Проживание" на главной странице      ОШИБКА В НАЗВАНИИ РАЗДЕЛА   Проживание в гостиницЫ  !!!!!!!!!!!
 def test_live_rent(driver):
@@ -61,3 +62,69 @@ def test_switch_summer_winter(driver):
     driver.implicitly_wait(1)
     summer_activity = driver.find_elements(By.CSS_SELECTOR, '*[class="card_activity"]')    # Находим карточку зимнего вида спорта и сравниваем их кол-во на странице
     assert len(summer_activity) == 6
+
+# BE - 2250 Разделы зимних видов развлечений в блоке "Активности на курорте"
+def test_parts_of_winter_activity(driver):
+    name_modul = driver.find_element(*main_page.NAME_MODUL_ACTIVITY)             # Находим название блока "Активности на курорте"
+    driver.execute_script("arguments[0].scrollIntoView(true);", name_modul)      # Скролим страницу до блока "Активности на курорте"
+    time.sleep(1)
+    driver.find_elements(By.CLASS_NAME, 'card_activity__image')[2].click()       # Нажимаем на картинку "Катание на беговых лыжах" и переходим в это раздел
+    part_name_cross_skiing = driver.find_element(*name_part.NAME_PART_SLIDER).text  # Находим название раздела "Катание на беговых лыжах"
+    assert part_name_cross_skiing == 'Катание на беговых лыжах'
+    driver.back()
+    driver.find_elements(By.CLASS_NAME, 'card_activity__image')[4].click()          # Нажимаем на картинку "Катание на горных лыжах" и переходим в это раздел
+    part_name_mount_skiing = driver.find_element(*name_part.NAME_PART_SLIDER).text  # Находим название раздела "Катание на горных лыжах"
+    assert part_name_mount_skiing == 'Катание на горных лыжах'
+    driver.back()
+    driver.find_elements(By.CLASS_NAME, 'card_activity__image')[5].click()       # Нажимаем на картинку "Катание на сноуборде" и переходим в это раздел
+    part_name_snowboard = driver.find_element(*name_part.NAME_PART_SLIDER).text  # Находим название раздела "Катание на сноуборде"
+    assert part_name_snowboard == 'Катание на сноуборде'
+    driver.back()
+    driver.find_elements(By.CLASS_NAME, 'card_activity__image')[6].click()       # Нажимаем на картинку "Катание на сноутюбинге" и переходим в это раздел
+    part_name_tubing = driver.find_element(*name_part.NAME_PART_SLIDER).text     # Находим название раздела "Катание на сноутюбинге"
+    assert part_name_tubing == 'Катание на сноутюбинге'
+    driver.back()
+    driver.find_elements(By.CLASS_NAME, 'card_activity__image')[7].click()       # Нажимаем на картинку "Катание на надувном драконе" и переходим в это раздел
+    part_name_dragon = driver.find_element(*name_part.NAME_PART_SLIDER).text     # Находим название раздела "Катание на надувном драконе"
+    assert part_name_dragon == 'Катание на надувном драконе'
+    driver.back()
+    driver.find_elements(By.CLASS_NAME, 'card_activity__image')[10].click()       # Нажимаем на картинку "Катание на снегоходах" и переходим в это раздел
+    part_name_snowbike = driver.find_element(*name_part.NAME_PART_SLIDER).text    # Находим название раздела "Катание на снегоходах"
+    assert part_name_snowbike == 'Катание на снегоходах'
+    driver.back()
+
+# BE - 2260 Разделы зимних летних развлечений в блоке "Активности на курорте"
+def test_parts_of_summer_activity(driver):
+    name_modul = driver.find_element(*main_page.NAME_MODUL_ACTIVITY)             # Находим название блока "Активности на курорте"
+    driver.execute_script("arguments[0].scrollIntoView(true);", name_modul)      # Скролим страницу до блока "Активности на курорте"
+    time.sleep(1)
+    driver.find_elements(By.CSS_SELECTOR, '*[data-season="summer"]')[0].click()   # Нажимаем кнопку "Лето" в блоке "Активности на курорте"
+    driver.implicitly_wait(1)
+    driver.find_elements(By.CLASS_NAME, 'card_activity__image')[0].click()        # Нажимаем на картинку "Катание на квадроцикле" и переходим в это раздел
+    part_name_atv = driver.find_element(*name_part.NAME_PART_SLIDER)              # Находим название раздела "Катание на квадроцикле"
+    assert part_name_atv.text == 'Катание на квадроцикле'
+    driver.back()
+    driver.find_elements(By.CSS_SELECTOR, '*[data-season="summer"]')[0].click()   # Нажимаем кнопку "Лето" в блоке "Активности на курорте"
+    driver.implicitly_wait(1)
+    driver.find_elements(By.CLASS_NAME, 'card_activity__image')[1].click()        # Нажимаем на картинку "Бадминтон" и переходим в это раздел
+    part_name_badminton = driver.find_element(*name_part.NAME_PART_SLIDER)        # Находим название раздела "Бадминтон"
+    assert part_name_badminton.text == 'Бадминтон'
+    driver.back()
+    driver.find_elements(By.CSS_SELECTOR, '*[data-season="summer"]')[0].click()   # Нажимаем кнопку "Лето" в блоке "Активности на курорте"
+    driver.implicitly_wait(1)
+    driver.find_elements(By.CLASS_NAME, 'card_activity__image')[3].click()        # Нажимаем на картинку "Катание на катамаране" и переходим в это раздел
+    part_name_catamaran = driver.find_element(*name_part.NAME_PART_SLIDER)        # Находим название раздела "Катание на катамаране"
+    assert part_name_catamaran.text == 'Катание на катамаране'
+    driver.back()
+    driver.find_elements(By.CSS_SELECTOR, '*[data-season="summer"]')[0].click()   # Нажимаем кнопку "Лето" в блоке "Активности на курорте"
+    driver.implicitly_wait(1)
+    driver.find_elements(By.CLASS_NAME, 'card_activity__image')[8].click()        # Нажимаем на картинку "Катание на SUP-Доске" и переходим в это раздел
+    part_name_supboard = driver.find_element(*name_part.NAME_PART_SLIDER)         # Находим название раздела "Катание на SUP-Доске"
+    assert part_name_supboard.text == 'Катание на SUP-Доске'
+    driver.back()
+    driver.find_elements(By.CSS_SELECTOR, '*[data-season="summer"]')[0].click()   # Нажимаем кнопку "Лето" в блоке "Активности на курорте"
+    driver.implicitly_wait(1)
+    driver.find_elements(By.CLASS_NAME, 'card_activity__image')[9].click()        # Нажимаем на картинку "Стрельба из лука" и переходим в это раздел
+    part_name_archery = driver.find_element(*name_part.NAME_PART_SLIDER)          # Находим название раздела "Стрельба из лука"
+    assert part_name_archery.text == 'Стрельба из лука'
+    driver.back()
