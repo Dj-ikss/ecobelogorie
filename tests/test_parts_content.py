@@ -98,33 +98,64 @@ def test_parts_of_summer_activity(driver):
     name_modul = driver.find_element(*main_page.NAME_MODUL_ACTIVITY)             # Находим название блока "Активности на курорте"
     driver.execute_script("arguments[0].scrollIntoView(true);", name_modul)      # Скролим страницу до блока "Активности на курорте"
     time.sleep(1)
-    driver.find_elements(By.CSS_SELECTOR, '*[data-season="summer"]')[0].click()   # Нажимаем кнопку "Лето" в блоке "Активности на курорте"
-    driver.implicitly_wait(1)
+    driver.find_element(By.XPATH, '/html/body/div/div[1]/div/div[5]/div[3]/div[2]/a[2]').click()
+    # driver.find_elements(By.CSS_SELECTOR, '*[data-season="summer"]')[0].click()   # Нажимаем кнопку "Лето" в блоке "Активности на курорте"
+    driver.implicitly_wait(3)
     driver.find_elements(By.CLASS_NAME, 'card_activity__image')[0].click()        # Нажимаем на картинку "Катание на квадроцикле" и переходим в это раздел
     part_name_atv = driver.find_element(*name_part.NAME_PART_SLIDER)              # Находим название раздела "Катание на квадроцикле"
     assert part_name_atv.text == 'Катание на квадроцикле'
     driver.back()
     driver.find_elements(By.CSS_SELECTOR, '*[data-season="summer"]')[0].click()   # Нажимаем кнопку "Лето" в блоке "Активности на курорте"
-    driver.implicitly_wait(1)
+    driver.implicitly_wait(3)
     driver.find_elements(By.CLASS_NAME, 'card_activity__image')[1].click()        # Нажимаем на картинку "Бадминтон" и переходим в это раздел
     part_name_badminton = driver.find_element(*name_part.NAME_PART_SLIDER)        # Находим название раздела "Бадминтон"
     assert part_name_badminton.text == 'Бадминтон'
     driver.back()
     driver.find_elements(By.CSS_SELECTOR, '*[data-season="summer"]')[0].click()   # Нажимаем кнопку "Лето" в блоке "Активности на курорте"
-    driver.implicitly_wait(1)
+    driver.implicitly_wait(3)
     driver.find_elements(By.CLASS_NAME, 'card_activity__image')[3].click()        # Нажимаем на картинку "Катание на катамаране" и переходим в это раздел
     part_name_catamaran = driver.find_element(*name_part.NAME_PART_SLIDER)        # Находим название раздела "Катание на катамаране"
     assert part_name_catamaran.text == 'Катание на катамаране'
     driver.back()
     driver.find_elements(By.CSS_SELECTOR, '*[data-season="summer"]')[0].click()   # Нажимаем кнопку "Лето" в блоке "Активности на курорте"
-    driver.implicitly_wait(1)
+    driver.implicitly_wait(3)
     driver.find_elements(By.CLASS_NAME, 'card_activity__image')[8].click()        # Нажимаем на картинку "Катание на SUP-Доске" и переходим в это раздел
     part_name_supboard = driver.find_element(*name_part.NAME_PART_SLIDER)         # Находим название раздела "Катание на SUP-Доске"
     assert part_name_supboard.text == 'Катание на SUP-Доске'
     driver.back()
     driver.find_elements(By.CSS_SELECTOR, '*[data-season="summer"]')[0].click()   # Нажимаем кнопку "Лето" в блоке "Активности на курорте"
-    driver.implicitly_wait(1)
+    driver.implicitly_wait(3)
     driver.find_elements(By.CLASS_NAME, 'card_activity__image')[9].click()        # Нажимаем на картинку "Стрельба из лука" и переходим в это раздел
     part_name_archery = driver.find_element(*name_part.NAME_PART_SLIDER)          # Находим название раздела "Стрельба из лука"
     assert part_name_archery.text == 'Стрельба из лука'
+    driver.back()
+
+# BE - 2280 Кнопка "Все новости" блока "Новости" на главное странице
+def test_btn_all_news(driver):
+    name_modul = driver.find_element(*main_page.NAME_MODUL_NEWS)                      # Находим название блока "Новости" на гл.странице
+    driver.execute_script("arguments[0].scrollIntoView(true);", name_modul)           # Скролим страницу до блока "Новости"
+    assert name_modul.text == 'Новости'
+    time.sleep(1)
+    btn_all_news = driver.find_elements(By.CSS_SELECTOR, '*[href="https://ecobelogorie.ru/blog"]')[1]    # Находим кнопку "Все новости"
+    assert btn_all_news.text == 'Все новости'
+    btn_all_news.click()                                                                                 # Нажимаем кнопку "Все новости"
+    part_name_news = driver.find_element(*name_part.NAME_PART)                                           # Находим название раздела и проверяем его
+    assert part_name_news.text == 'Новости'
+    driver.back()
+
+# BE - 2290 Переход в статью новости из блока "Новости" на главной странице.
+def test_news(driver):
+    name_modul = driver.find_element(*main_page.NAME_MODUL_NEWS)                      # Находим название блока "Новости" на гл.странице
+    driver.execute_script("arguments[0].scrollIntoView(true);", name_modul)           # Скролим страницу до блока "Новости"
+    time.sleep(2)
+    news_first = driver.find_element(By.XPATH, '/html/body/div/div[1]/div/div[6]/div[2]/div/div[1]/div/div[2]/a').text  # Название первой новости
+    driver.find_elements(By.CLASS_NAME, 'news__item')[0].click()                      # Находим и нажимаем на первую новость в блоке "Новости"
+    name_news_of_part = driver.find_element(By.CLASS_NAME, 'single__content__text__preview').text   # Находим название открывшейся новости
+    assert news_first == name_news_of_part
+    driver.back()
+    news_last = driver.find_element(By.XPATH, '/html/body/div/div[1]/div/div[6]/div[2]/div/div[4]/div/div[2]/a').text   # Название последней новости
+    time.sleep(2)
+    driver.find_elements(By.CLASS_NAME, 'news__item')[3].click()                      # Находим и нажимаем на последнюю новость в блоке "Новости"
+    name_news_of_part = driver.find_element(By.CLASS_NAME, 'single__content__text__preview').text  # Находим название открывшейся новости
+    assert news_last == name_news_of_part
     driver.back()
