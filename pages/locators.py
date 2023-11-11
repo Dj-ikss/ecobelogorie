@@ -102,10 +102,13 @@ class callback:  # Кнопки и поля ввода в окне "Обратн
 
 
 class main_page:
-    NAME_MODUL_GALLERY = (By.CLASS_NAME, 'title_y.title_y--gallery.title_y--gallery__home')    # Локатор блока "Галерея" на главной странице.
-    NAME_MODUL_HOME = (By.CLASS_NAME, 'title_y.title_y--living_block.title_y--living_block__home')   # Локатор блока "Проживание" на главной странице.
+    NAME_MODUL_GALLERY = (By.CLASS_NAME, 'title_y.title_y--gallery.title_y--gallery__home')                # Локатор блока "Галерея" на главной странице.
+    NAME_MODUL_HOME = (By.CLASS_NAME, 'title_y.title_y--living_block.title_y--living_block__home')         # Локатор блока "Проживание" на главной странице.
+    NAME_MODUL_ACTIVITY = (By.CLASS_NAME, 'title_y.title_y--activity_block.title_y--activity_block__home') # Локатор блока "Активности на курорте" на главной странице.
+    NAME_MODUL_NEWS = (By.CLASS_NAME, 'title_y--news_block__home')                                         # Локатор блока "Новости" на главной странице.
 
-
+class footer_btn:   # Кнопки футера
+    BTN_ACTIVITY = (By.CSS_SELECTOR, '*[href="https://ecobelogorie.ru/chem-zanyatsya"]')         # Локатор кнопки "Развлечения" в футере
 
 def click_btn_menu_about(driver):
     driver.find_element(*btn_menu_about.BTN_ABOUT).click()
