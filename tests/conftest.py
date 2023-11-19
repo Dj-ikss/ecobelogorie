@@ -13,8 +13,8 @@ def driver():
     link = 'https://ecobelogorie.ru/'
     chrome_driver.get(link)
     chrome_driver.maximize_window()  # макс размер экрана
-    chrome_driver.find_element(By.CSS_SELECTOR, '*[title="Close"]').click()
-    time.sleep(1)
+    # chrome_driver.find_element(By.CSS_SELECTOR, '*[title="Close"]').click()
+    # time.sleep(1)
     return chrome_driver
 
 
