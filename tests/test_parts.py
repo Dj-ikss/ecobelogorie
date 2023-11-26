@@ -10,7 +10,9 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from pages.base_page import GO_MAIN_PAGE, SUMMER_ACTIVITY_BTN, ALL_SEASON_ACTIVITY_BTN, WINTER_ACTIVITY_BTN, \
-    CROSS_SKIING_BTN, MOUNT_SKIING_BTN, SNOWBOARD_BTN, TUBING_BTN, DRAGON_BTN, SNOWBIKE_BTN, ATV_BTN, CATAMARAN_BTN, BADMINTON_BTN, SUPBOARD_BTN, ARCHERY_BTN
+    CROSS_SKIING_BTN, MOUNT_SKIING_BTN, SNOWBOARD_BTN, TUBING_BTN, DRAGON_BTN, SNOWBIKE_BTN, ATV_BTN, CATAMARAN_BTN, \
+    BADMINTON_BTN, SUPBOARD_BTN, ARCHERY_BTN, RENT_EQUIPMENT_BTN, RENT_BADMINTON_BTN, RENT_ARCHERY_BTN, \
+    RENT_SUPBOARD_BTN, RENT_KATAMARAN_BTN, RENT_ATV_BTN
 
 
 # BE - 2300 Раздел "Активности" - кнопки "Лето", "Зима", "Все сезоны"
@@ -272,4 +274,28 @@ def test_part_rent_block_winter_activity(driver):
     SNOWBIKE_BTN(driver)                                                          # Нажимаем на картинку "Катание на снегоходах" и переходим в это раздел
     part_name_snowbike = driver.find_element(*name_part.NAME_PART_SLIDER).text    # Находим название раздела "Катание на снегоходах"
     assert part_name_snowbike == 'Катание на снегоходах'
+    GO_MAIN_PAGE(driver)
+
+# BE - 2410 Летний инвентарь в разделе "Аренда инвентаря"
+def test_rent_equipment_summer(driver):
+    RENT_EQUIPMENT_BTN(driver)                                              # Нажимаем Кнопка-меню "Прокат снаряжения" в хэдере
+    RENT_BADMINTON_BTN(driver)                                              # Нажимаем на картинку "Прокат ракеток для бадминтона"
+    part_name_badminton = driver.find_element(*name_part.NAME_PART_RENT)    # Находим название раздела "Прокат ракеток для бадминтона"
+    assert part_name_badminton.text == 'Прокат ракеток для бадминтона'      # Сравниваем название раздела
+    driver.back()
+    RENT_ARCHERY_BTN(driver)                                                   # Нажимаем Кнопка-меню "Прокат инвентаря для стрельбы из лука" в хэдере
+    part_name_archery = driver.find_element(*name_part.NAME_PART_RENT)         # Находим название раздела "Прокат инвентаря для стрельбы из лука"
+    assert part_name_archery.text == 'Прокат инвентаря для стрельбы из лука'   # Сравниваем название раздела
+    driver.back()
+    RENT_SUPBOARD_BTN(driver)                                                  # Нажимаем Кнопка-меню "Прокат SUP-Борда" в хэдере
+    part_name_supboard = driver.find_element(*name_part.NAME_PART_RENT)        # Находим название раздела "Прокат SUP-Борда"
+    assert part_name_supboard.text == 'Прокат SUP-Борда'                       # Сравниваем название раздела
+    driver.back()
+    RENT_KATAMARAN_BTN(driver)                                                  # Нажимаем Кнопка-меню "Прокат катамарана" в хэдере
+    part_name_katamaran = driver.find_element(*name_part.NAME_PART_RENT)        # Находим название раздела "Прокат катамарана"
+    assert part_name_katamaran.text == 'Прокат катамарана'                      # Сравниваем название раздела
+    driver.back()
+    RENT_ATV_BTN(driver)                                                        # Нажимаем Кнопка-меню "Прокат квадроцикла" в хэдере
+    part_name_atv = driver.find_element(*name_part.NAME_PART_RENT)              # Находим название раздела "Прокат квадроцикла"
+    assert part_name_atv.text == 'Прокат квадроцикла'                           # Сравниваем название раздела
     GO_MAIN_PAGE(driver)

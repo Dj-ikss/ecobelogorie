@@ -10,6 +10,9 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+from pages.locators import btn_menu_about, click_btn_menu_about, name_part, btn_menu_what_to_do, btn_menu_rent, \
+    btn_rent_equipment, btn_right_side, callback
+
 def GO_MAIN_PAGE(driver):
     driver.find_element(By.CSS_SELECTOR, '*[href="https://ecobelogorie.ru"]').click()      # Переходим на главную страницу по лого
 
@@ -45,3 +48,19 @@ def SUPBOARD_BTN(driver):
     driver.find_elements(By.CLASS_NAME, 'card_activity__image')[4].click()  # Нажимаем на изображение "Катание на SUP-Доске"
 def ARCHERY_BTN(driver):
     driver.find_elements(By.CLASS_NAME, 'card_activity__image')[9].click()  # Нажимаем на картинку "Стрельба из лука" и переходим в это раздел
+
+
+"""Раздел Аренда Инвентаря"""
+def RENT_EQUIPMENT_BTN(driver):
+    driver.find_elements(*btn_rent_equipment.BTN_MENU_EQUIPMENT)[0].click()       # Нажимаем Кнопка-меню "Прокат снаряжения" в хэдере
+def RENT_BADMINTON_BTN(driver):
+    driver.find_elements(By.CLASS_NAME, 'card_activity')[6].click()               # Нажимаем на картинку "Прокат ракеток для бадминтона"
+def RENT_ARCHERY_BTN(driver):
+    driver.find_elements(By.CLASS_NAME, 'card_activity')[7].click()               # Нажимаем на картинку "Прокат инвентаря для стрельбы из лука"
+def RENT_SUPBOARD_BTN(driver):
+    driver.find_elements(By.CLASS_NAME, 'card_activity')[8].click()               # Нажимаем на картинку "Прокат SUP-Борда"
+def RENT_KATAMARAN_BTN(driver):
+    driver.find_elements(By.CLASS_NAME, 'card_activity')[9].click()               # Нажимаем на картинку "Прокат катамарана"
+
+def RENT_ATV_BTN(driver):
+    driver.find_elements(By.CLASS_NAME, 'card_activity')[10].click()               # Нажимаем на картинку "Прокат квадроцикла"
