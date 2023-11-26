@@ -12,7 +12,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from pages.base_page import GO_MAIN_PAGE, SUMMER_ACTIVITY_BTN, ALL_SEASON_ACTIVITY_BTN, WINTER_ACTIVITY_BTN, \
     CROSS_SKIING_BTN, MOUNT_SKIING_BTN, SNOWBOARD_BTN, TUBING_BTN, DRAGON_BTN, SNOWBIKE_BTN, ATV_BTN, CATAMARAN_BTN, \
     BADMINTON_BTN, SUPBOARD_BTN, ARCHERY_BTN, RENT_EQUIPMENT_BTN, RENT_BADMINTON_BTN, RENT_ARCHERY_BTN, \
-    RENT_SUPBOARD_BTN, RENT_KATAMARAN_BTN, RENT_ATV_BTN
+    RENT_SUPBOARD_BTN, RENT_KATAMARAN_BTN, RENT_ATV_BTN, RENT_EQUIPMENT_WINTER_BTN, RENT_SNOWBIKE_BTN, RENT_TUBING_BTN, \
+    RENT_DRAGON_BTN, RENT_SNOWBOARD_BTN, RENT_CROSS_SKI_BTN, RENT_MOUNT_SKI_BTN
 
 
 # BE - 2300 Раздел "Активности" - кнопки "Лето", "Зима", "Все сезоны"
@@ -298,4 +299,44 @@ def test_rent_equipment_summer(driver):
     RENT_ATV_BTN(driver)                                                        # Нажимаем Кнопка-меню "Прокат квадроцикла" в хэдере
     part_name_atv = driver.find_element(*name_part.NAME_PART_RENT)              # Находим название раздела "Прокат квадроцикла"
     assert part_name_atv.text == 'Прокат квадроцикла'                           # Сравниваем название раздела
+    GO_MAIN_PAGE(driver)
+
+# BE - 2420 Зимний инвентарь в разделе "Аренда инвентаря"
+def test_rent_equipment_winter(driver):
+    RENT_EQUIPMENT_BTN(driver)                                                # Нажимаем Кнопка-меню "Прокат снаряжения" в хэдере
+    RENT_EQUIPMENT_WINTER_BTN(driver)                                         # Нажимаем на кнопку "Зима" в разделе "Аренда Инвентаря"
+    driver.implicitly_wait(5)
+    RENT_SNOWBIKE_BTN(driver)                                                  # Нажимаем Кнопка-меню "Прокат снегохода" в хэдере
+    part_name_snowbike = driver.find_element(*name_part.NAME_PART_RENT)        # Находим название раздела "Прокат снегохода"
+    assert part_name_snowbike.text == 'Прокат снегохода'                      # Сравниваем название раздела
+    driver.back()
+    RENT_EQUIPMENT_WINTER_BTN(driver)                                         # Нажимаем на кнопку "Зима" в разделе "Аренда Инвентаря"
+    driver.implicitly_wait(5)
+    RENT_TUBING_BTN(driver)                                                  # Нажимаем Кнопка-меню "Прокат сноутюбинга" в хэдере
+    part_name_tubing = driver.find_element(*name_part.NAME_PART_RENT)        # Находим название раздела "Прокат сноутюбинга"
+    assert part_name_tubing.text == 'Прокат сноутюбинга'                     # Сравниваем название раздела
+    driver.back()
+    RENT_EQUIPMENT_WINTER_BTN(driver)                                         # Нажимаем на кнопку "Зима" в разделе "Аренда Инвентаря"
+    driver.implicitly_wait(5)
+    RENT_DRAGON_BTN(driver)                                                  # Нажимаем Кнопка-меню "Прокат надувного дракона" в хэдере
+    part_name_dragon = driver.find_element(*name_part.NAME_PART_RENT)        # Находим название раздела "Прокат надувного дракона"
+    assert part_name_dragon.text == 'Прокат надувного дракона'               # Сравниваем название раздела
+    driver.back()
+    RENT_EQUIPMENT_WINTER_BTN(driver)                                         # Нажимаем на кнопку "Зима" в разделе "Аренда Инвентаря"
+    driver.implicitly_wait(5)
+    RENT_SNOWBOARD_BTN(driver)                                                # Нажимаем Кнопка-меню "Прокат сноуборда" в хэдере
+    part_name_snowboard = driver.find_element(*name_part.NAME_PART_RENT)      # Находим название раздела "Прокат сноуборда"
+    assert part_name_snowboard.text == 'Прокат сноуборда'                     # Сравниваем название раздела
+    driver.back()
+    RENT_EQUIPMENT_WINTER_BTN(driver)                                         # Нажимаем на кнопку "Зима" в разделе "Аренда Инвентаря"
+    driver.implicitly_wait(5)
+    RENT_CROSS_SKI_BTN(driver)                                                # Нажимаем Кнопка-меню "Прокат беговых лыж" в хэдере
+    part_name_cross_ski = driver.find_element(*name_part.NAME_PART_RENT)      # Находим название раздела "Прокат беговых лыж"
+    assert part_name_cross_ski.text == 'Прокат беговых лыж'                   # Сравниваем название раздела
+    driver.back()
+    RENT_EQUIPMENT_WINTER_BTN(driver)                                         # Нажимаем на кнопку "Зима" в разделе "Аренда Инвентаря"
+    driver.implicitly_wait(5)
+    RENT_MOUNT_SKI_BTN(driver)                                                # Нажимаем Кнопка-меню "Прокат горных лыж" в хэдере
+    part_name_mount_ski = driver.find_element(*name_part.NAME_PART_RENT)      # Находим название раздела "Прокат горных лыж"
+    assert part_name_mount_ski.text == 'Прокат горных лыж'                    # Сравниваем название раздела
     GO_MAIN_PAGE(driver)
