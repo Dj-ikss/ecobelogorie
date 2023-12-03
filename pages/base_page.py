@@ -76,6 +76,12 @@ def RENT_SNOWBOARD_BTN(driver):
 
 def RENT_CROSS_SKI_BTN(driver):
     driver.find_elements(By.CLASS_NAME, 'card_activity')[4].click()           # Нажимаем на картинку "Прокат беговых лыж"
-
 def RENT_MOUNT_SKI_BTN(driver):
     driver.find_elements(By.CLASS_NAME, 'card_activity')[5].click()           # Нажимаем на картинку "Прокат горных лыж"
+
+
+"""Раздел ГОРНОЛЫЖКА"""
+def SKI_RESORT_BTN(driver):
+    btn_mountain_ride = driver.find_element(By.LINK_TEXT, 'Горнолыжка')             # Находим кнопку Горнолыжка
+    link_btn_mountain_ride = btn_mountain_ride.get_attribute('href')                # Получаем ссылку из этой кнопки
+    driver.get(link_btn_mountain_ride)                                              # Переходим по ссылке

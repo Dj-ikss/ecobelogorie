@@ -13,7 +13,7 @@ from pages.base_page import GO_MAIN_PAGE, SUMMER_ACTIVITY_BTN, ALL_SEASON_ACTIVI
     CROSS_SKIING_BTN, MOUNT_SKIING_BTN, SNOWBOARD_BTN, TUBING_BTN, DRAGON_BTN, SNOWBIKE_BTN, ATV_BTN, CATAMARAN_BTN, \
     BADMINTON_BTN, SUPBOARD_BTN, ARCHERY_BTN, RENT_EQUIPMENT_BTN, RENT_BADMINTON_BTN, RENT_ARCHERY_BTN, \
     RENT_SUPBOARD_BTN, RENT_KATAMARAN_BTN, RENT_ATV_BTN, RENT_EQUIPMENT_WINTER_BTN, RENT_SNOWBIKE_BTN, RENT_TUBING_BTN, \
-    RENT_DRAGON_BTN, RENT_SNOWBOARD_BTN, RENT_CROSS_SKI_BTN, RENT_MOUNT_SKI_BTN
+    RENT_DRAGON_BTN, RENT_SNOWBOARD_BTN, RENT_CROSS_SKI_BTN, RENT_MOUNT_SKI_BTN, SKI_RESORT_BTN
 
 
 # BE - 2300 Раздел "Активности" - кнопки "Лето", "Зима", "Все сезоны"
@@ -340,3 +340,13 @@ def test_rent_equipment_winter(driver):
     part_name_mount_ski = driver.find_element(*name_part.NAME_PART_RENT)      # Находим название раздела "Прокат горных лыж"
     assert part_name_mount_ski.text == 'Прокат горных лыж'                    # Сравниваем название раздела
     GO_MAIN_PAGE(driver)
+
+# BE - 2430 Блок "Карта курорта «Белогорье»" в разделе "Горнолыжный комплекс Белогорье"
+def test_part_ski_resort_map(driver):
+    SKI_RESORT_BTN(driver)                                                      # Нажимаем на кнопку "Горнолыжка" в футере
+    name_block_map = driver.find_element(By.CLASS_NAME, 'home__map__title')     # Находим название блока "Карта курорта «Белогорье»"
+    assert name_block_map.text == 'Карта курорта «Белогорье»'                   # Сравниваем название блока
+    map = driver.find_element(By.CSS_SELECTOR, '*[src="/images/__content/pages/map/resort-img.jpg"]')
+    print(map.size)
+    assert map.size != 0                                          # Находим изображение с картой и проверяем, что размер не равен нулю
+

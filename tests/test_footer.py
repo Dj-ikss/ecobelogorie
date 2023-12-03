@@ -5,6 +5,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium import webdriver
 import pytest
 from selenium.webdriver.common.by import By
+
+from pages.base_page import SKI_RESORT_BTN
 from pages.locators import name_part
 
 def test_copyright(driver):     # все права защищены
@@ -77,9 +79,7 @@ def test_additional_title(driver):    # блок Дополнительная и
     assert name_additional_title1 == 'Дополнительнаяинформация'
 
 def test_info_mountain_ride(driver):        # Горнолыжка
-    btn_mountain_ride = driver.find_element(By.LINK_TEXT, 'Горнолыжка')             # Находим кнопку Горнолыжка
-    link_btn_mountain_ride = btn_mountain_ride.get_attribute('href')                # Получаем ссылку из этой кнопки
-    driver.get(link_btn_mountain_ride)                                              # Переходим по ссылке
+    SKI_RESORT_BTN(driver)                                                            # Нажимаем на кнопку "Горнолыжка" в футере
     name_part_ski = driver.find_element(*name_part.NAME_PART_SLIDER).text             # Находим название раздела
     assert name_part_ski == 'Горнолыжный комплекс Белогорье'
 
